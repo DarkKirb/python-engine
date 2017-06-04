@@ -18,8 +18,11 @@ class TextureUniform(attribute.Uniform):
         super().__init__(name, program)
         self.setData(fname)
     def setData(self, fname):
-        logging.debug("Loading new texture #{}".format(self.texture))
-        im = Image.open(fname).rotate(180).transpose(Image.FLIP_LEFT_RIGHT).convert("RGBA")
+        if isinstance(fname,str):
+            logging.debug("Loading new texture #{}".format(self.texture))
+            im = Image.open(fname).rotate(180).transpose(Image.FLIP_LEFT_RIGHT).convert("RGBA")
+        else:
+            im = fname
         data = np.asarray(im).flatten()
         cdata = ffi.cast("uint8_t *", data.ctypes.data)
         logging.debug("Copying texture #{} to the GPU".format(self.texture))

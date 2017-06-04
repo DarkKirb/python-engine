@@ -39,7 +39,6 @@ class VBO(object):
 
 class Vertex(object):
     def __init__(self, *args, **kwargs):
-        logging.debug("Creating Vertex with VBOs {}".format(repr(args)))
         self.vbos = list(args)
         self.uniforms = []
         if "uniforms" in kwargs:
