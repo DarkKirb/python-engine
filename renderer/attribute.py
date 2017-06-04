@@ -34,3 +34,6 @@ class Uniform(object):
             gl.glUniform1f(self.uniform, self.data)
         if isinstance(self.data, int):
             gl.glUniform1i(self.uniform, self.data)
+        if isinstance(self.data, list):
+            mat = ffi.new("float[]", self.data)
+            gl.glUniformMatrix4fv(self.uniform, 1, False, mat)

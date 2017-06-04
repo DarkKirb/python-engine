@@ -5,6 +5,7 @@ from PIL import Image
 import numpy as np
 from . import attribute
 from . import vertex
+from . import frustrum
 gl = glob.gl
 
 class TextureUniform(attribute.Uniform):
@@ -52,7 +53,10 @@ class TextureVBO(vertex.VBO):
 
 class Texture(vertex.Vertex):
     def __init__(self, name, fname, program, *args, **kwargs):
-        uniforms = [TextureUniform("texture_"+name, fname, program)]
+        aspect = attribute.Uniform("aspectRatio", program)
+        aspect.setData(frustrum.mat)
+        uniforms = [TextureUniform("texture_"+name, fname, program),
+                    aspect]
         if "uniforms" in kwargs:
             uniforms += kwargs["uniforms"]
         super().__init__(*args, uniforms=uniforms)
