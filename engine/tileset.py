@@ -69,7 +69,6 @@ class Tileset:
         return x,y
     def render(self, x, y):
         width = self.width
-        print(width)
         w=x+1
         z=y+1
         x/=width
