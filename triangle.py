@@ -6,6 +6,7 @@ from renderer import init
 from renderer import shader
 from renderer import attribute
 from renderer import vertex
+from renderer import texture
 import logging
 import math
 sdl=ffi
@@ -23,16 +24,14 @@ def init_resources():
         -0.8,-0.8,
          0.8,-0.8
     ])
-
-    attribute_v_color = attribute.Attribute("v_color", 3, program)
-    colorvbo = vertex.VBO(attribute_v_color, [
-        0.0, 1.0, 0.0,
-        0.0, 0.0, 1.0,
-        1.0, 0.0, 0.0
+    textureVBO = texture.TextureVBO(program, [
+        0.0, 1.0,
+        0.0, 0.0,
+        1.0, 0.0
     ])
     triangleUniform = attribute.Uniform("fade", program)
     triangleUniform.setData(0.1)
-    triangleVertex = vertex.Vertex(trianglevbo, colorvbo, uniforms=[triangleUniform])
+    triangleVertex = texture.Texture("box", "assets/images/OpenGL_Tutorial_Texture.jpg", program, textureVBO, trianglevbo, uniforms=[triangleUniform])
     return True
 def logic():
     global triangleUniform
